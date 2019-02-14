@@ -16,12 +16,11 @@ struct data{
 	char *name;
 	long number;
 };
-int *llength;
 
 //Functions//
 int SCAN(FILE *(*stream)){
 //Open the file and return an integer indicating how many lines there are.
-	printf("  ...Scanning Data...\n");
+	//printf("  ...Scanning Data...\n");
 	char *line = NULL;
 	size_t len = 0;	
 	ssize_t read = 0;
@@ -40,37 +39,44 @@ int SCAN(FILE *(*stream)){
 
 struct data *LOAD(FILE *stream, int size){
 //Rewind file, create the dynamic array and read data
-	stream = fopen("HW5.data", "r");
+	//printf("  ...Loading Data...\n");
+	stream = fopen("hw5.data", "r");
 	struct data *blackbox;
 
-
-	printf("  ...Loading Data...\n");
-	blackbox = (struct data*)malloc(size + 1);
-	for(int i = 0; i < size + 1; i ++){
-		blackbox[i].name = (char*)malloc(100 * sizeof(char));
-		if(i == 0){continue;}
-		fscanf(stream, "%s", blackbox[i].name);
-		fscanf(stream, "%ld", &blackbox[i].number);
-		//printf("\t%s %ld\n", blackbox[i].name, blackbox[i].number);
-	}
+	char *line = NULL;
+	size_t len = 0;	
+	ssize_t read = 0;
+		
+	blackbox = (struct data*)calloc(size + 1, sizeof(struct data));
 	
+	rewind(stream);
+	for(int g = 1; g < size + 1; g ++){
+		read = getline(&line, &len, stream);
+		line = strtok(line," ,\n");
+		//printf("line length: %s, %zu\n", line, strlen(line));
+		blackbox[g].name = (char*)calloc((int)strlen(line), sizeof(char));
+		strncpy(blackbox[g].name, line, (int)strlen(line));
+		line = strtok(NULL," ");
+		blackbox[g].number = atol(line);
+	} 
+
 	return blackbox;
 }
 
 void SEARCH(struct data *blackbox, char *name, int size){
-//Find the name we are looking for, and the size of the array.
+	//Find the name we are looking for, and the size of the array.
 
-	printf("  ...Searching Data...\n");
+	//printf("  ...Searching Data...\n");
 	struct data tempStruct;
 	
 	for(int j = 1; j < size + 1; j ++){
 		//tempStruct = *(blackbox + j);	
 		
-		//printf("%s, %s\n", name, blackbox[j].name);
+		//printf("%s, %s\t%p\n", name, blackbox[j].name, &blackbox[j].name);
 		if(strcmp(name, blackbox[j].name) == 0){
-			printf("\n __________________________________\n");
-			printf("|The name was found at entry %5d |\n", j);
-			printf(" ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n");
+			printf("\n __________________________________________________________\n");
+			printf("|%s was found at entry %5d |\n", name, j);
+			printf(" ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\n");
 			goto exitfunction;
 		}
 	}
@@ -82,12 +88,14 @@ void SEARCH(struct data *blackbox, char *name, int size){
 
 void FREE(struct data *blackbox, int size){
 //Free all dynamically allocated memory.
-	for(int k = 0; k < size + 1; k ++)
-			free(blackbox[k].name);
-
+	//printf("  ...Freeing Memory...\n");
+	for(int k = 1; k < size + 1; k ++){
+		//printf("Freeing %s\t%p\n", blackbox[k].name, &blackbox[k].name);
+		free(blackbox[k].name);
+	}
+			
 	free(blackbox);
 }
-
 
 
 int main(int argc, char *(*argv)){
@@ -107,14 +115,14 @@ int main(int argc, char *(*argv)){
 
 
 	//Phase 3: Searching
-	SEARCH(blackbox, *(argv + 1), fileSize);
+	for(int z = 1; z < argc; z++)
+		SEARCH(blackbox, *(argv + z), fileSize);
 	
 
 	//Phase 4: Freeing
-	//FREE(blackbox, fileSize);
+	FREE(blackbox, fileSize);
 
 
 	end:
 	fclose(dataFile);
 }
-
