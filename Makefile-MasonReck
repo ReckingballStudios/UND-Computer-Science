@@ -1,0 +1,41 @@
+#Mason Reck
+#CSCI 230
+#HW6 Make File
+#2/21/2019
+#mason.reck@und.edu
+
+
+#FILES
+objects = HW6-MasonReck.o HW6-A-MasonReck.o HW6-B-MasonReck.o HW6-C-MasonReck.o HW6-D-MasonReck.o
+cFiles = HW6-MasonReck.c HW6-A-MasonReck.c HW6-B-MasonReck.c HW6-C-MasonReck.c HW6-D-MasonReck.c
+hFiles = HW6-A-MasonReck.h HW6-B-MasonReck.h HW6-C-MasonReck.h HW6-D-MasonReck.h
+
+mainFile = HW6-MasonReck.c
+
+#Compiler
+CC = gcc
+
+#Compiler Flags
+cFlags = -g -Wall
+
+#Target
+target = hw6
+
+
+default: obj
+
+obj: $(objects)
+	$(CC) $(cFlags) -o obj $(objects)
+
+#HW6-MasonReck.o: 
+
+
+all: $(cFiles) $(hFiles) $(objects) 
+	$(CC) $(cFlags) -o $(target) $(mainFile)
+
+
+clean: $(RM) $(target) obj *.o *~
+
+
+
+

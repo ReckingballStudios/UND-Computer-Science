@@ -10,16 +10,15 @@ mason.reck@und.edu
 #include<string.h>
 #include<stdlib.h>
 
+struct data{
+	char *name;
+	long number;
+};
 
 #include "HW6-A-MasonReck.h"
 #include "HW6-B-MasonReck.h"
 #include "HW6-C-MasonReck.h"
 #include "HW6-D-MasonReck.h"
-
-struct data{
-	char *name;
-	long number;
-};
 
 
 int main(int argc, char *(*argv)){
@@ -47,6 +46,5 @@ int main(int argc, char *(*argv)){
 	FREE(blackbox, fileSize);
 
 
-	end:
 	fclose(dataFile);
 }
