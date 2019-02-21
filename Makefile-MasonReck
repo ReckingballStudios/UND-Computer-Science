@@ -4,6 +4,8 @@
 #2/21/2019
 #mason.reck@und.edu
 
+#https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html#C
+
 
 #FILES
 objects = HW6-MasonReck.o HW6-A-MasonReck.o HW6-B-MasonReck.o HW6-C-MasonReck.o HW6-D-MasonReck.o
