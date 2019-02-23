@@ -12,4 +12,4 @@ mason.reck@und.edu
 
 
 
-struct data *LOAD(FILE *stream, int size);
+struct data *LOAD(FILE *(*stream), int size);

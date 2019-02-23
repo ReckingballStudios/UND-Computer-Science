@@ -10,7 +10,10 @@ mason.reck@und.edu
 #include<string.h>
 #include<stdlib.h>
 
-
+struct data{
+	char *name;
+	long number;
+};
 
 void SEARCH(struct data *blackbox, char *name, int size){
 	//Find the name we are looking for, and the size of the array.

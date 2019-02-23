@@ -27,6 +27,7 @@ int main(int argc, char *(*argv)){
 		return 0;
 	}
 
+
 	//Phase 1: Scanning
 	FILE *dataFile = fopen("HW5.data", "r");
 	int fileSize = SCAN(&dataFile);
@@ -34,7 +35,7 @@ int main(int argc, char *(*argv)){
 
 	//Phase 2: Loading
 	struct data *blackbox;
-	blackbox = LOAD(dataFile, fileSize);
+	blackbox = LOAD(&dataFile, fileSize);
 
 
 	//Phase 3: Searching

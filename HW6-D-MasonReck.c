@@ -10,7 +10,10 @@ mason.reck@und.edu
 #include<string.h>
 #include<stdlib.h>
 
-
+struct data{
+	char *name;
+	long number;
+};
 
 void FREE(struct data *blackbox, int size){
 //Free all dynamically allocated memory.
